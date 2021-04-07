@@ -9,6 +9,7 @@ import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 
 public class RAKIPythonBridge {
 
@@ -16,21 +17,27 @@ public class RAKIPythonBridge {
 
   public static void main(final String[] args) {
     try {
-      test();
+      final JSONArray ja = run();
+      LOG.info(ja.toString(2));
     } catch (final IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
+      LOG.error(e.getLocalizedMessage(), e);
     }
   }
 
-  public static String resolvePythonScriptPath(final String script) {
-    // TODO: add path
-    return script;
+  public static String getScriptPath() {
+    return "/media/store/GitRepos/raki-verbalizer-webapp/test/hello.py";
   }
 
-  public static void test() throws ExecuteException, IOException {
-    final String line = "python " + resolvePythonScriptPath("hello.py");
-    final CommandLine cmdLine = CommandLine.parse(line);
+  public static String getArguments() {
+    return "test";
+  }
+
+  public static String getCommandLine() {
+    return "python " + getScriptPath() + " " + getArguments();
+  }
+
+  public static JSONArray run() throws ExecuteException, IOException {
+    final CommandLine cmdLine = CommandLine.parse(getCommandLine());
 
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     final PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
@@ -39,7 +46,17 @@ public class RAKIPythonBridge {
     executor.setStreamHandler(streamHandler);
 
     final int exitCode = executor.execute(cmdLine);
-    LOG.info("No errors should be detected " + exitCode);
-    LOG.info("Should contain script output: " + outputStream.toString().trim());
+    if (exitCode == 0) {
+      final String rtn = outputStream.toString().trim();
+
+      LOG.debug("Should contain script output:\n " + rtn);
+
+      outputStream.close();
+
+      return new JSONArray(rtn);
+    } else {
+      LOG.error("Errors be detected " + exitCode);
+      return null;
+    }
   }
 }

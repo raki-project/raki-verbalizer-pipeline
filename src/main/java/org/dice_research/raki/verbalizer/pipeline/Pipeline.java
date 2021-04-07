@@ -6,7 +6,7 @@ import org.dice_research.raki.verbalizer.pipeline.planner.DocumentPlanner;
 
 public class Pipeline implements IVerbalizerPipeline {
 
-  protected IOutput output = null;
+  protected IOutput<?> output = null;
   protected IInput input = null;
 
   protected static Pipeline instance;
@@ -40,12 +40,12 @@ public class Pipeline implements IVerbalizerPipeline {
   }
 
   @Override
-  public Pipeline setOutput(final IOutput output) {
+  public Pipeline setOutput(final IOutput<?> output) {
     this.output = output;
     return this;
   }
 
-  public IOutput getOutput() {
+  public IOutput<?> getOutput() {
     return output;
   }
 }

@@ -21,10 +21,10 @@ public class DocumentPlanner implements IPlanner<String> {
   protected static final Logger LOG = LogManager.getLogger(DocumentPlanner.class);
 
   protected SentencePlanner sentencePlanner = null;
-  protected IOutput output = null;
+  protected IOutput<?> output = null;
   protected IInput input = null;
 
-  public DocumentPlanner(final IInput input, final IOutput output) {
+  public DocumentPlanner(final IInput input, final IOutput<?> output) {
     this.output = output;
     this.input = input;
 
@@ -46,14 +46,14 @@ public class DocumentPlanner implements IPlanner<String> {
      * <code>
     for (final Entry<OWLAxiom, String> result : resutls.entrySet()) {
       LOG.info(result);
-    
+
        map.put(result.getKey(), //
            new SimpleEntry<>(//
                input.getAxiomsMap().get(result.getKey()), //
                // input.getAxiomsMap().get(result.getKey()), //
                result.getValue()//
            ));
-    
+
     } </code>
      **/
     // write verbalized axioms to file success

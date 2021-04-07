@@ -11,7 +11,7 @@ public interface IVerbalizerPipeline {
 
   IVerbalizerPipeline setInput(final IInput input);
 
-  IVerbalizerPipeline setOutput(final IOutput output);
+  IVerbalizerPipeline setOutput(final IOutput<?> output);
 
   IVerbalizerPipeline run();
 }

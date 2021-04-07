@@ -25,9 +25,9 @@ abstract class AInputExtended extends AInput {
   Path axiomsFile;
 
   @Override
-  public IInput setOntologyIRI(final IRI ontology) {
+  public IInput setOntology(final IRI ontology) {
     try {
-      super.setOntologyIRI(ontology);
+      super.setOntology(ontology);
 
       final File file = new File(ontology.getShortForm());
       OWLManager.createOWLOntologyManager().saveOntology(owlOntology, IRI.create(file.toURI()));
@@ -39,9 +39,9 @@ abstract class AInputExtended extends AInput {
   }
 
   @Override
-  public IInput setOntologyPath(final Path ontology) {
+  public IInput setOntology(final Path ontology) {
     ontologyFile = ontology;
-    return super.setOntologyPath(ontology);
+    return super.setOntology(ontology);
   }
 }
 

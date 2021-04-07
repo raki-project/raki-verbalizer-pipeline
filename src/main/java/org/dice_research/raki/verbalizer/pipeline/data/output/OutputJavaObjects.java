@@ -1,29 +1,26 @@
 package org.dice_research.raki.verbalizer.pipeline.data.output;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Map;
 
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- *
- * @author Rene Speck
+ * Simple wrapper returns the input.
+ * 
+ * @author rspeck
  *
  */
-public class OutputJavaObjects extends AOutput {
+public class OutputJavaObjects implements IOutput<Map<OWLAxiom, String>> {
 
-  protected Map<OWLAxiom, SimpleEntry<String, String>> data = null;
+  protected Map<OWLAxiom, String> verbalizationResults = null;
 
-  /**
-   * returns the given input.
-   */
-  // @Override
-  // public Object write(final Map<OWLAxiom, SimpleEntry<String, String>> verb) {
-  // data = verb;
-  // return verb;
-  // }
+  public Map<OWLAxiom, String> getResults() {
+    return verbalizationResults;
+  }
 
-  public Map<OWLAxiom, SimpleEntry<String, String>> getData() {
-    return data;
+  @Override
+  public Map<OWLAxiom, String> write(final Map<OWLAxiom, String> verbalizationResults) {
+    this.verbalizationResults = verbalizationResults;
+    return verbalizationResults;
   }
 }

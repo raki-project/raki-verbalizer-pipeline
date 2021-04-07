@@ -2,40 +2,21 @@ package org.dice_research.raki.verbalizer.pipeline.data.output;
 
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
 
 /**
- * Writes the given input to a file or terminal or ...
+ * Handles the given results.
  *
- * @author Rene Speck
+ * @author rspeck
  *
+ * @param <T>
  */
-// TODO: use a templete instead of objects
-public interface IOutput {
+public interface IOutput<T> {
+  Logger LOG = LogManager.getLogger(IOutput.class);
 
-  /**
-   * Writes the given input to a file or terminal or ...
-   *
-   * @param bytes
-   * @return something in case if an error null
-   */
-  Object write(final byte[] bytes);
+  T write(final Map<OWLAxiom, String> verbalizationResults);
 
-  /**
-   * Writes the given input to a file or terminal or ...
-   *
-   * @param bytes
-   * @return something in case if an error null
-   */
-  Object write(final Object object);
-
-  /**
-   * Writes the given input to a file or terminal or ...
-   *
-   * @param bytes
-   * @return something in case if an error null
-   */
-  // Object write(Map<OWLAxiom, SimpleEntry<String, String>> verb);
-  Object write(final Map<OWLAxiom, String> verb);
-
+  T getResults();
 }

@@ -18,14 +18,21 @@ import org.semanticweb.owlapi.model.OWLClassExpression;
  * @author Rene Speck
  *
  */
-public class OutputJsonTrainingData extends AOutput {
+public class OutputJsonTrainingData implements IOutput<JSONArray> {
 
-  private final OWLObjectRenderer manchesterRenderer =
-      new ManchesterOWLSyntaxOWLObjectRendererImplExt();
-  private final OWLObjectRenderer dlRenderer = new DLSyntaxObjectRenderer();
+  private final OWLObjectRenderer manchesterR = new ManchesterOWLSyntaxOWLObjectRendererImplExt();
+  private final OWLObjectRenderer dlR = new DLSyntaxObjectRenderer();
 
   protected JSONArray data = null;
-  Path file;
+  protected Path file = null;
+
+  /**
+   *
+   * @param file
+   */
+  public OutputJsonTrainingData() {
+
+  }
 
   /**
    *
@@ -33,10 +40,16 @@ public class OutputJsonTrainingData extends AOutput {
    */
   public OutputJsonTrainingData(final Path file) {
     this.file = file;
+    LOG.debug("Wrties output in {}", file.toFile().getAbsoluteFile());
   }
 
   @Override
-  public Object write(final Map<OWLAxiom, String> verb) {
+  public JSONArray getResults() {
+    return data;
+  }
+
+  @Override
+  public JSONArray write(final Map<OWLAxiom, String> verb) {
     data = new JSONArray();
 
     int id = 0;
@@ -47,56 +60,21 @@ public class OutputJsonTrainingData extends AOutput {
 
       final JSONObject o = new JSONObject();
       final JSONArray axioms = new JSONArray();
-      axioms.put(manchesterRenderer.render(axiom));
+      axioms.put(manchesterR.render(axiom));
       for (final OWLClassExpression e : axiom.getNestedClassExpressions()) {
-        axioms.put(manchesterRenderer.render(e));
+        axioms.put(manchesterR.render(e));
       }
       o.put("manchester", axioms);
       o.put("owl", axiom.toString());
       o.put("nl", nl == null ? "" : nl);
       o.put("id", id++);
-      o.put("dl", dlRenderer.render(axiom));
-
+      o.put("dl", dlR.render(axiom));
       data.put(o);
     }
 
-    return RakiIO.write(file, data.toString(2).getBytes());
-  }
-
-  /**
-   * <code>
-  
-   public Object write(final Map<OWLAxiom, SimpleEntry<String, String>> verb) {
-     data = new JSONArray();
-  
-     int id = 0;
-     for (final Entry<OWLAxiom, SimpleEntry<String, String>> entry : verb.entrySet()) {
-  
-       final OWLAxiom axiom = entry.getKey();
-       // final String dl = entry.getValue().getKey();
-       final String nl = entry.getValue().getValue();
-  
-       final JSONObject o = new JSONObject();
-       final JSONArray axioms = new JSONArray();
-       axioms.put(manchesterRenderer.render(axiom));
-       for (final OWLClassExpression e : axiom.getNestedClassExpressions()) {
-         axioms.put(manchesterRenderer.render(e));
-       }
-       o.put("manchester", axioms);
-       o.put("owl", axiom.toString());
-       // o.put("dl", dl == null ? "" : dl);
-       o.put("nl", nl == null ? "" : nl);
-       o.put("id", id++);
-       o.put("dl", dlRenderer.render(axiom));
-  
-       data.put(o);
-     }
-  
-     return RakiIO.write(file, data.toString(2).getBytes());
-   }
-    </code>
-   */
-  public JSONArray getData() {
+    if (file != null) {
+      RakiIO.write(file, data.toString(2).getBytes());
+    }
     return data;
   }
 }

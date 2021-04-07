@@ -2,6 +2,7 @@ package org.dice_research.raki.verbalizer.pipeline.ui;
 
 import java.nio.file.Paths;
 
+import org.aksw.owl2nl.data.IInput;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dice_research.raki.verbalizer.pipeline.Pipeline;
@@ -9,7 +10,6 @@ import org.dice_research.raki.verbalizer.pipeline.data.input.RAKIInput;
 import org.dice_research.raki.verbalizer.pipeline.data.output.OutputJsonTrainingData;
 
 import gnu.getopt.Getopt;
-import simplenlg.lexicon.Lexicon;
 
 public class RAKICommandLineInterface {
   protected static final Logger LOG = LogManager.getLogger(RAKICommandLineInterface.class);
@@ -40,11 +40,9 @@ public class RAKICommandLineInterface {
 
     LOG.info("\n==============================\nRunning Pipeline ...");
     try {
-      final RAKIInput in = new RAKIInput();
-      in//
+      final IInput in = new RAKIInput()//
           .setAxioms(Paths.get(axioms))//
-          .setOntologyPath(Paths.get(ontology))//
-          .setLexicon(Lexicon.getDefaultLexicon());
+          .setOntology(Paths.get(ontology));
 
       Pipeline//
           .getInstance()//
