@@ -26,7 +26,7 @@ public class RAKIPythonBridge {
 
     final DefaultExecutor executor = new DefaultExecutor();
     executor.setStreamHandler(streamHandler);
-
+    LOG.info(cmdLine.getExecutable());
     final int exitCode = executor.execute(cmdLine);
     if (exitCode == 0) {
       final String rtn = outputStream.toString().trim();
