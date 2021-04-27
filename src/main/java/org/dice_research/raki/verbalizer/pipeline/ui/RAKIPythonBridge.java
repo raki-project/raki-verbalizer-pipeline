@@ -15,28 +15,11 @@ public class RAKIPythonBridge {
 
   protected static final Logger LOG = LogManager.getLogger(RAKIPythonBridge.class);
 
-  public static void main(final String[] args) {
-    try {
-      final JSONArray ja = run();
-      LOG.info(ja.toString(2));
-    } catch (final IOException e) {
-      LOG.error(e.getLocalizedMessage(), e);
-    }
-  }
+  private String scriptPath = null;
+  private String arguments = null;
 
-  public static String getScriptPath() {
-    return "/media/store/GitRepos/raki-verbalizer-webapp/test/hello.py";
-  }
+  public JSONArray run() throws ExecuteException, IOException {
 
-  public static String getArguments() {
-    return "test";
-  }
-
-  public static String getCommandLine() {
-    return "python " + getScriptPath() + " " + getArguments();
-  }
-
-  public static JSONArray run() throws ExecuteException, IOException {
     final CommandLine cmdLine = CommandLine.parse(getCommandLine());
 
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -58,5 +41,28 @@ public class RAKIPythonBridge {
       LOG.error("Errors be detected " + exitCode);
       return null;
     }
+  }
+
+  //
+  protected String getCommandLine() {
+    return "python " + getScriptPath() + " " + getArguments();
+  }
+
+  public RAKIPythonBridge setScriptPath(final String scriptPath) {
+    this.scriptPath = scriptPath;
+    return this;
+  }
+
+  public String getScriptPath() {
+    return scriptPath;
+  }
+
+  public RAKIPythonBridge setArguments(final String arguments) {
+    this.arguments = arguments;
+    return this;
+  }
+
+  public String getArguments() {
+    return arguments;
   }
 }
