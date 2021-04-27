@@ -44,7 +44,7 @@ public class RAKIPythonBridge {
 
   //
   protected String getCommandLine() {
-    return "python " + getScriptPath() + " " + getArguments();
+    return "python3 " + getScriptPath() + " " + getArguments();
   }
 
   public RAKIPythonBridge setScriptPath(final String scriptPath) {
