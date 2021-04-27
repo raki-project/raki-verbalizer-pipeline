@@ -20,6 +20,7 @@ public class RAKIPythonBridge {
   public String run() throws ExecuteException, IOException {
 
     final CommandLine cmdLine = CommandLine.parse(getCommandLine());
+    LOG.info(getCommandLine());
 
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     final PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
