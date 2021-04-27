@@ -2,7 +2,6 @@ package org.dice_research.raki.verbalizer.pipeline.ui;
 
 import java.nio.file.Paths;
 
-import org.aksw.owl2nl.data.IInput;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.dice_research.raki.verbalizer.pipeline.Pipeline;
@@ -40,7 +39,9 @@ public class RAKICommandLineInterface {
 
     LOG.info("\n==============================\nRunning Pipeline ...");
     try {
-      final IInput in = new RAKIInput()//
+      final RAKIInput in = new RAKIInput();
+      in//
+          .setType(RAKIInput.Type.RULES)//
           .setAxioms(Paths.get(axioms))//
           .setOntology(Paths.get(ontology));
 
