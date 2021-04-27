@@ -58,6 +58,7 @@ public class RAKIInput extends AInputExtended implements IRAKIInput {
   protected Model tboxModel = null;
 
   protected Model axiomsModel = null;
+  protected Type type = Type.MODEL;
 
   protected String getlabel(final IRI iri, final String lang, final Model model) {
     String label = null; // with lang
@@ -148,5 +149,16 @@ public class RAKIInput extends AInputExtended implements IRAKIInput {
       LOG.error(e.getLocalizedMessage(), e);
     }
     return this;
+  }
+
+  @Override
+  public IRAKIInput setType(final Type type) {
+    this.type = type;
+    return this;
+  }
+
+  @Override
+  public Type getType() {
+    return type;
   }
 }
