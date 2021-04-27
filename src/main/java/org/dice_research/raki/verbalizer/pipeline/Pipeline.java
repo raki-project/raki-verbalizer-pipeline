@@ -103,12 +103,12 @@ public class Pipeline implements IVerbalizerPipeline {
     final String oputput = file.toFile().getAbsolutePath().concat(".out");
 
     final String arguments = new StringBuilder()//
-        .append("-model ").append(model)//
-        .append("-src ").append(src)//
-        .append("-output ").append(oputput)//
-        .append("-replace_unk")//
-        .append("-verbose")//
-        .append("-beam_size ").append(beam_size)//
+        .append(" -model ").append(model)//
+        .append(" -src ").append(src)//
+        .append(" -output ").append(oputput)//
+        .append(" -replace_unk")//
+        .append(" -verbose")//
+        .append(" -beam_size ").append(beam_size)//
         .toString();
 
     try {
