@@ -58,7 +58,7 @@ public class RAKIInput extends AInputExtended implements IRAKIInput {
   protected Model tboxModel = null;
 
   protected Model axiomsModel = null;
-  protected Type type = Type.MODEL;
+  protected Type type = Type.NOTSET;
 
   protected String getlabel(final IRI iri, final String lang, final Model model) {
     String label = null; // with lang

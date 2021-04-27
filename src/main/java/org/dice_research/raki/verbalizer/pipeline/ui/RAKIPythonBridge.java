@@ -9,7 +9,6 @@ import org.apache.commons.exec.ExecuteException;
 import org.apache.commons.exec.PumpStreamHandler;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
 
 public class RAKIPythonBridge {
 
@@ -18,7 +17,7 @@ public class RAKIPythonBridge {
   private String scriptPath = null;
   private String arguments = null;
 
-  public JSONArray run() throws ExecuteException, IOException {
+  public String run() throws ExecuteException, IOException {
 
     final CommandLine cmdLine = CommandLine.parse(getCommandLine());
 
@@ -36,7 +35,7 @@ public class RAKIPythonBridge {
 
       outputStream.close();
 
-      return new JSONArray(rtn);
+      return rtn;
     } else {
       LOG.error("Errors be detected " + exitCode);
       return null;

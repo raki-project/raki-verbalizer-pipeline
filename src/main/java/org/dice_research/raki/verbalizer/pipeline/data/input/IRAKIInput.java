@@ -8,6 +8,7 @@ import org.semanticweb.owlapi.model.IRI;
 public interface IRAKIInput extends IInput {
 
   public enum Type {
+    NOTSET, //
     RULES, // use owl2nl
     MODEL // use trained model
   }
