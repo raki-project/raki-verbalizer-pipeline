@@ -20,22 +20,17 @@ public class RAKIPythonBridge {
   public String run() throws ExecuteException, IOException {
 
     final CommandLine cmdLine = CommandLine.parse(getCommandLine());
-    LOG.info(getCommandLine());
 
     final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     final PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 
     final DefaultExecutor executor = new DefaultExecutor();
     executor.setStreamHandler(streamHandler);
-    LOG.info(cmdLine.getExecutable());
     final int exitCode = executor.execute(cmdLine);
+
     if (exitCode == 0) {
       final String rtn = outputStream.toString().trim();
-
-      LOG.debug("Should contain script output:\n " + rtn);
-
       outputStream.close();
-
       return rtn;
     } else {
       LOG.error("Errors be detected " + exitCode);
@@ -43,7 +38,6 @@ public class RAKIPythonBridge {
     }
   }
 
-  //
   protected String getCommandLine() {
     return "python3 " + getScriptPath() + " " + getArguments();
   }
