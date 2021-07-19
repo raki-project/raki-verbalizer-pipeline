@@ -6,7 +6,6 @@ import java.util.Set;
 
 import org.aksw.owl2nl.converter.OWLAxiomConverter;
 import org.aksw.owl2nl.data.IInput;
-import org.aksw.owl2nl.exception.OWLAxiomConversionException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -42,7 +41,7 @@ public class RakiVerbalization extends OWLAxiomConverter implements IRakiVerbali
         } else {
           // LOG.warn("Could not verbalize axiom: " + axiom);
         }
-      } catch (final OWLAxiomConversionException e) {
+      } catch (final Exception e) {
         verbalizations.put(axiom, "");
         LOG.error("Could not verbalize axiom: " + axiom);
       }
