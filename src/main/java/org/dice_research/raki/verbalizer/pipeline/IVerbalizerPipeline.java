@@ -11,8 +11,10 @@ public interface IVerbalizerPipeline {
 
   IVerbalizerPipeline setInput(final IRAKIInput input);
 
+  // TODO: use reflections as parameter
   IVerbalizerPipeline setOutput(final IOutput<?> output);
 
   IVerbalizerPipeline run();
 
+  IOutput<?> getOutput();
 }

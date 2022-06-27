@@ -28,7 +28,6 @@ public class OutputJsonTrainingData implements IOutput<JSONArray> {
 
   /**
    *
-   * @param file
    */
   public OutputJsonTrainingData() {
 
@@ -60,6 +59,7 @@ public class OutputJsonTrainingData implements IOutput<JSONArray> {
 
       final JSONObject o = new JSONObject();
       final JSONArray axioms = new JSONArray();
+
       axioms.put(manchesterR.render(axiom));
       for (final OWLClassExpression e : axiom.getNestedClassExpressions()) {
         axioms.put(manchesterR.render(e));
