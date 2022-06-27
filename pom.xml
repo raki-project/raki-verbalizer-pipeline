@@ -12,6 +12,7 @@
 		<compiler.version>1.8</compiler.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<ld2nl.version>0.4.2-SNAPSHOT</ld2nl.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -32,7 +33,7 @@
 		<dependency>
 			<groupId>org.dice-research</groupId>
 			<artifactId>triple2nl</artifactId>
-			<version>0.4.1-SNAPSHOT</version>
+			<version>${ld2nl.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -47,7 +48,7 @@
 		<dependency>
 			<groupId>org.dice-research</groupId>
 			<artifactId>owl2nl</artifactId>
-			<version>0.4.1-SNAPSHOT</version>
+			<version>${ld2nl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.maven</groupId>
