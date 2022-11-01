@@ -21,8 +21,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 abstract class AInputExtended extends AInput {
-  Path ontologyFile;
-  Path axiomsFile;
+  Path ontologyFile; // remove me?
+  Path axiomsFile; // remove me?
 
   @Override
   public IInput setOntology(final IRI ontology) {
@@ -102,15 +102,14 @@ public class RAKIInput extends AInputExtended implements IRAKIInput {
 
   @Override
   public String getEnglishLabel(final IRI iri) {
-
+    final String lang = "en";
     if (tboxModel == null) {
       init();
     }
 
-    final boolean useLabelsInAxioms = true;
-    final String lang = "en";
     String label = getlabel(iri, lang, tboxModel);
-    if (useLabelsInAxioms && label == null) {
+
+    if (axiomsModel != null && label == null) {
       label = getlabel(iri, lang, axiomsModel);
     }
     return label;
