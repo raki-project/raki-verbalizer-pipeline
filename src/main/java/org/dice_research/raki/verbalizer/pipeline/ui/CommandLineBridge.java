@@ -42,7 +42,7 @@ public class CommandLineBridge {
     final PumpStreamHandler streamHandler = new PumpStreamHandler(outputStream);
 
     final DefaultExecutor executor = new DefaultExecutor();
-    executor.setExitValue(1);
+    executor.setExitValue(0);
     executor.setStreamHandler(streamHandler);
     int exitCode = -1;
     try {
@@ -63,7 +63,8 @@ public class CommandLineBridge {
       }
       return rtn;
     } else {
-      LOG.error("Errors ({}) be detected:{} ", exitCode, resultHandler.getException().getMessage());
+      LOG.error("Errors ({})", exitCode);
+      // resultHandler == null ? "resultHandler is NULL" : resultHandler.toString());
       return null;
     }
   }
@@ -78,6 +79,7 @@ public class CommandLineBridge {
     if (env == null) {
       env = new HashMap<>();
     }
+
     return env;
   }
 
