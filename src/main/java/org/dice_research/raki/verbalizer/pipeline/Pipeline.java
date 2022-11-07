@@ -81,8 +81,6 @@ public class Pipeline implements IVerbalizerPipeline {
     return output;
   }
 
-  // protected
-
   protected Pipeline runsModel() {
 
     final Path file;
@@ -127,7 +125,7 @@ public class Pipeline implements IVerbalizerPipeline {
     final List<OWLAxiom> axioms = in.getKey();
 
     final Map<OWLAxiom, String> map = new HashMap<>();
-    for (int i = 0; i < axioms.size(); i++) {
+    for (int i = 0; i < axioms.size() && i < verblines.size(); i++) {
       map.put(axioms.get(i), verblines.get(i));
     }
 
