@@ -19,5 +19,4 @@ public interface IRakiVerbalization {
    * @return result map with DL and verbalized axioms
    */
   Map<OWLAxiom, String> verbalize(final Set<OWLAxiom> axioms);
-
 }

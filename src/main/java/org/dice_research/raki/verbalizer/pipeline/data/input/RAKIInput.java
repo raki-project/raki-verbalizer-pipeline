@@ -7,12 +7,11 @@ import java.util.Set;
 import org.aksw.owl2nl.data.AInput;
 import org.aksw.owl2nl.data.IInput;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.NodeIterator;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.riot.Lang;
 import org.apache.jena.vocabulary.RDFS;
+import org.dice_research.raki.verbalizer.pipeline.io.RakiIO;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.IRI;
 import org.semanticweb.owlapi.model.OWLAxiom;
@@ -21,8 +20,8 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 abstract class AInputExtended extends AInput {
-  Path ontologyFile; // remove me?
-  Path axiomsFile; // remove me?
+  Path ontologyFile;
+  Path axiomsFile;
 
   @Override
   public IInput setOntology(final IRI ontology) {
@@ -84,16 +83,13 @@ public class RAKIInput extends AInputExtended implements IRAKIInput {
 
   private void init() {
     if (axiomsFile != null) {
-      axiomsModel = ModelFactory.createDefaultModel()//
-          .read(axiomsFile.toFile().getPath(), Lang.RDFXML.getName());
+      axiomsModel = RakiIO.readRDFXML(axiomsFile.toFile().getPath());
       if (axiomsModel == null) {
         LOG.error("Could not read axioms.");
       }
     }
     if (ontologyFile != null) {
-      tboxModel = ModelFactory.createDefaultModel()//
-          .read(ontologyFile.toFile().getPath(), Lang.RDFXML.getName());
-
+      tboxModel = RakiIO.readRDFXML(ontologyFile.toFile().getPath());
       if (tboxModel == null) {
         LOG.error("Could not read tbox.");
       }
@@ -159,5 +155,11 @@ public class RAKIInput extends AInputExtended implements IRAKIInput {
   @Override
   public Type getType() {
     return type;
+  }
+
+  @Override
+  public String toString() {
+    return "type: " + type.name() + "; ontology file: " + ontologyFile.toString()
+        + "; axioms file: " + axiomsFile.toString();
   }
 }

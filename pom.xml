@@ -40,6 +40,10 @@
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
 				<exclusion>
+					<groupId>org.dllearner</groupId>
+					<artifactId>components-core</artifactId>
+				</exclusion>
+				<exclusion>
 					<groupId>xerces</groupId>
 					<artifactId>xercesImpl</artifactId>
 				</exclusion>

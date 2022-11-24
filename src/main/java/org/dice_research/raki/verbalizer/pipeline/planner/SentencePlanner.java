@@ -36,8 +36,6 @@ public class SentencePlanner implements IPlanner<Map<OWLAxiom, String>> {
   public SentencePlanner(final IInput input) {
     this.input = input;
     rakiVerbalization = new RakiVerbalization(input);
-
-    LOG.debug("axioms size: {}", results.keySet().size());
   }
 
   /*
@@ -48,9 +46,7 @@ public class SentencePlanner implements IPlanner<Map<OWLAxiom, String>> {
 
   @Override
   public IPlanner<Map<OWLAxiom, String>> build() {
-
     results = rakiVerbalization.verbalize(input.getAxioms());
-
     // removes null, for axioms without verbalization
     // results.removeAll(Collections.singletonList(null));
 
@@ -63,12 +59,6 @@ public class SentencePlanner implements IPlanner<Map<OWLAxiom, String>> {
     return this;
   }
 
-  /*
-   * (non-Javadoc)
-   *
-   * @see org.aksw.owl2nl.raki.planner.IPlanner#results()
-   */
-  @Override
   public Map<OWLAxiom, String> results() {
     return results;
   }

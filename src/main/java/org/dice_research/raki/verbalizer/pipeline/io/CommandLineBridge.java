@@ -1,4 +1,4 @@
-package org.dice_research.raki.verbalizer.pipeline.ui;
+package org.dice_research.raki.verbalizer.pipeline.io;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

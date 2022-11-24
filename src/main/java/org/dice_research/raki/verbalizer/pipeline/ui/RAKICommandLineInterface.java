@@ -14,12 +14,12 @@ public class RAKICommandLineInterface {
   protected static final Logger LOG = LogManager.getLogger(RAKICommandLineInterface.class);
 
   public static void main(final String[] args) {
-    LOG.info("\n==============================\nParsing arguments...");
+    LOG.info("\n==============================\nParsing arguments ...");
     String axioms = null;
     String output = null;
     String ontology = null;
-
-    final Getopt g = new Getopt("Verbalizer Pipeline", args, "a:x o:x s:x");
+    String type = null;
+    final Getopt g = new Getopt("Verbalizer Pipeline", args, "a:x o:x s:x t:x");
     int c;
     while ((c = g.getopt()) != -1) {
       switch (c) {
@@ -32,6 +32,9 @@ public class RAKICommandLineInterface {
         case 's':
           output = String.valueOf(g.getOptarg());
           break;
+        case 't':
+          type = String.valueOf(g.getOptarg());
+          break;
         default:
           LOG.info("getopt() returned " + c + "\n");
       }
@@ -41,14 +44,15 @@ public class RAKICommandLineInterface {
     try {
       final RAKIInput in = new RAKIInput();
       in//
-          .setType(RAKIInput.Type.RULES)//
+          .setType(type.startsWith("m") ? RAKIInput.Type.MODEL : RAKIInput.Type.RULES) //
           .setAxioms(Paths.get(axioms))//
           .setOntology(Paths.get(ontology));
 
       Pipeline//
           .getInstance()//
           .setInput(in)//
-          .setOutput(new OutputJsonTrainingData(Paths.get(output)))//
+          .setOutput(output == null ? new OutputJsonTrainingData()
+              : new OutputJsonTrainingData(Paths.get(output)))//
           // .setOutput(new OutputTerminal())//
           .run();
     } catch (final Exception e) {
