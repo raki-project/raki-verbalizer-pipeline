@@ -11,8 +11,18 @@ conda run --name rakiEnv pip install sentencepiece==0.1.96 subword-nmt==0.3.7 Op
 conda activate rakiEnv && conda install  sentencepiece
 ```
 
+Download:
+```
+cd model && \
+wget https://hobbitdata.informatik.uni-leipzig.de/RAKI/VerbalizerModel/model.zip --no-check-certificate  && \
+  unzip model.zip && \
+  rm model.zip
+```
 
-Compile: ```mvn -T 1C compile  -X -am```
+Compile: 
+```
+mvn -T 1C compile  -X -am
+```
 
 
 ### Run:
